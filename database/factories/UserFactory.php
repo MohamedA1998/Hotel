@@ -39,12 +39,11 @@ class UserFactory extends Factory
 
     public function admin()
     {
-        return $this->state(function (array $attributes){
+        return $this->state(function (array $attributes) {
             return [
                 'name'      => 'Admin',
                 'email'     => 'admin@admin.com',
-                'password'  => Hash::make(111),
-                'role'      => 'admin',    
+                'role'      => 'admin',
                 'status'    => 'active',
             ];
         });
@@ -53,16 +52,14 @@ class UserFactory extends Factory
 
     public function user()
     {
-        return $this->state(function (array $attributes){
+        return $this->state(function (array $attributes) {
             return [
                 'name'      => 'User',
                 'email'     => 'user@user.com',
                 'password'  => Hash::make(111),
-                'role'      => 'user',    
+                'role'      => 'user',
                 'status'    => 'active',
             ];
         });
     }
-
-
 }
