@@ -29,7 +29,7 @@
                         <div class="row mb-3">
                             <label for="input38" class="col-sm-3 col-form-label">Photo</label>
                             <div class="col-sm-9">
-                                <input class="form-control" name="photo" type="file" id="imageOnCreate">
+                                <input class="form-control" name="image" type="file" id="imageOnCreate">
                             </div>
                         </div>
                         <div class="row mb-3">

@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\BookArea;
+use App\Models\SiteSetting;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +21,14 @@ class DatabaseSeeder extends Seeder
         User::factory(1)->admin()->create();
         User::factory(1)->user()->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Team::factory(10)->create();
+        BookArea::factory()->create();
+        SiteSetting::factory()->create();
+
+        $this->call([
+            RoomTypeSeeder::class,
+            RoomSeeder::class,
+            RoomNumberSeeder::class
+        ]);
     }
 }

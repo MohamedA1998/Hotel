@@ -8,42 +8,14 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 
+// Handel All Input Name To (image) and (images) in multiImage
 class ImageService
 {
-
     private $width , $height , $image , $path;
-
-    public function __construct(public Request $request)
-    {
-        
-    }    
     
+    public function __construct(public Request $request){}
 
-    public function save(Model $model , $file , $storeIn)
-    {
-        if( !$this->request->hasFile($file) ){
-            return ;
-        }
-
-        $this->image = $this->request->file($file);
-
-        $this->path = $storeIn ;
-
-        if( $model->images ){
-            $this->DeleteFileFromStorage($model);
-
-            $model->images->path = $this->ResizeImage() ;
-
-            $model->images->save();
-        }else{
-            $model->images()->create([
-                'path'  => $this->ResizeImage() 
-            ]);
-        }
-    }
-
-
-    public function size($width , $height )
+    public function size($width , $height)
     {
         $this->width = $width ;
 
@@ -52,8 +24,7 @@ class ImageService
         return $this ;
     }
 
-
-    protected function ResizeImage()
+    protected function UploadTo()
     {
         $imageName = $this->path . '/' . hexdec(uniqid()).'.'.$this->image->guessExtension();
 
@@ -62,29 +33,123 @@ class ImageService
 
         return $imageName ;
     }
-
-
-    public function update(Model $model , $file , $storeIn)
+    
+    public function save($storeIn):string
     {
-        return $this->save($model , $file , $storeIn);
+        $iamgeArray = [];
+        
+        $this->path = $storeIn ;
+
+        Storage::exists($storeIn) ?: Storage::createDirectory($storeIn);
+        
+        if( $this->request->hasFile('image') ){
+            $this->image = $this->request->file('image');
+            
+            $iamgeArray[] = $this->UploadTo() ;
+        }
+        
+        if(isset($this->request->images) && !empty($this->request->images)){
+            foreach( $this->request->images as $image ){
+                $this->image = $image;
+                $iamgeArray[] = $this->UploadTo() ;
+            }
+        }
+
+        return count($iamgeArray) == 1 ? $iamgeArray[0] : implode(',' , $iamgeArray) ?? '' ;
     }
 
-
-    public function delete(Model $model)
+    public function update(Model $model , $storeIn)
     {
-        if( $model->images ){
-            $this->DeleteFileFromStorage($model);
+        $images = '';
 
-            return $model->images()->delete();
+        if(empty($model->image)){
+            $images = $this->save($storeIn);
         }
+
+        if(!empty($model->image)){
+            $images = explode(',', $model->image , 2);
+
+            if( $this->request->hasFile('image') ){
+                $this->delete($images[0]);
+                $images[0] = $this->save($storeIn);
+            }
+
+            if(isset($this->request->images) && !empty($this->request->images)){
+                foreach( $this->exceptFirst($model->image) as $image ){
+                    $this->delete($image);
+                }
+
+                $images[1] = $this->save($storeIn);
+            }
+
+            $images = implode(',', $images);
+        }
+
+        $model->forceFill(['image' => $images])->save();
 
         return ;
     }
 
-
-    private function DeleteFileFromStorage(Model $model)
+    public function delete($column)
     {
-        return Storage::delete($model->images->path) ;
+        $images = explode(',' , $column) ;
+
+        if(is_array($images)){
+            foreach($images as $image){
+                Storage::delete($image);
+            }
+
+            return ;
+        }
+
+        Storage::delete($column);
     }
 
+    public function deleteByIndex(Model $model , $index)
+    {
+        $images = explode(',',$model->image);
+
+        $this->delete($images[$index]);
+
+        unset($images[$index]);
+
+        $model->forceFill(['image'=> implode(',', $images)])->save();
+    }
+
+    public function image($column , $dir = 'storage/'): Array|String
+    {
+        $images = array_map(
+            fn($img) => Str::startsWith($img , 'https') ? $img : asset("{$dir}{$img}") ,
+            explode(',', empty($column) ? 'no_image.jpg' : $column)
+        );
+
+        return count($images) == 1 ? $images[0]:  $images;
+    }
+
+    public function first($column):string
+    {
+        if(is_array($this->image($column))){
+            return $this->image($column)[0];
+        }
+
+        return $this->image($column);
+    }
+
+    public function exceptFirst($column):array
+    {
+        if(is_array($this->image($column))){
+            return array_slice($this->image($column) , 1,count($this->image($column))-1, true);
+        }
+
+        return [$this->image($column)];
+    }
+
+    public function last($column):string
+    {
+        if(is_array($this->image($column))){
+            return $this->image($column)[-1];
+        }
+
+        return $this->image($column);
+    }
 }

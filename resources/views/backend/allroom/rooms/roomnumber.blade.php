@@ -18,13 +18,13 @@
                     @foreach ($room->roomnumber as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->RoomNumber }}</td>
-                            <td>{{ $item->Status }}</td>
+                            <td>{{ $item->room_number }}</td>
+                            <td>{{ $item->status }}</td>
                             <td>
                                 {{-- <a href="{{ route('team.edit' , ['team' => $team]) }}" class="btn btn-warning px-3 radius-30"> Edit</a> --}}
                                 <button type="button" class="btn btn-outline-warning px-3 radius-30" data-bs-toggle="modal" data-bs-target="#EditRoomNumber{{ $item->id }}">Edit</button>
-                                <a onclick="event.preventDefault();document.getElementById('deleteTeam{{ $item->id }}').submit()" href="#" class="btn btn-outline-danger px-3 radius-30" id="delete">Delete</a>
-                                <form action="{{ route('roomnumber.destroy' , ['roomnumber' => $item]) }}" method="post" id="deleteTeam{{ $item->id }}">
+                                <a href="#" class="btn btn-outline-danger px-3 radius-30" data-formid="{{ 'deleteRoomNumber'.$item->id }}" id="delete">Delete</a>
+                                <form action="{{ route('room.roomnumber.destroy' , [$room, $item]) }}" method="post" id="deleteRoomNumber{{ $item->id }}">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -37,7 +37,7 @@
                                 <div class="modal-content bg-dark">
                                     
                                     <div class="modal-body text-white">
-                                        <form action="{{ route('roomnumber.update' , ['roomnumber' => $item]) }}" method="post">
+                                        <form action="{{ route('room.roomnumber.update' , [$room, $item]) }}" method="post">
                                             @csrf
                                             @method('PUT')
                         
@@ -47,17 +47,17 @@
                                                 <div class="row mb-3">
                                                     <label for="input35" class="col-sm-3 col-form-label">Room Number</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" name="RoomNumber" class="form-control" value="{{ $item->RoomNumber }}" />
+                                                        <input type="text" name="room_number" class="form-control" value="{{ $item->room_number }}" />
                                                     </div>
                                                 </div>
                         
                                                 <div class="row mb-3">
                                                     <label for="input35" class="col-sm-3 col-form-label">Room Active</label>
                                                     <div class="col-sm-9">
-                                                        <select id="input9" class="form-select" name="Status">
+                                                        <select id="input9" class="form-select" name="status">
                                                             <option selected="">Choose...</option>
-                                                            <option value="Active" {{ $item->Status == 'Active' ? 'selected' : ''}}>Active</option>
-                                                            <option value="InActive" {{ $item->Status == 'InActive' ? 'selected' : ''}}>InActive</option>
+                                                            <option value="Active" {{ $item->status == 'active' ? 'selected' : ''}}>Active</option>
+                                                            <option value="InActive" {{ $item->status == 'in_active' ? 'selected' : ''}}>InActive</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -96,7 +96,7 @@
         <div class="modal-content bg-dark">
             
             <div class="modal-body text-white">
-                <form action="{{ route('roomnumber.store') }}" method="post">
+                <form action="{{ route('room.roomnumber.store' , $room) }}" method="post">
                     @csrf
 
                     <div class="card-body p-4">
@@ -105,19 +105,17 @@
                         <div class="row mb-3">
                             <label for="input35" class="col-sm-3 col-form-label">Enter Room Number</label>
                             <div class="col-sm-9">
-                                <input type="text" name="RoomNumber" class="form-control" placeholder="Enter Room Number" />
+                                <input type="text" name="room_number" class="form-control" placeholder="Enter Room Number" />
                             </div>
                         </div>
-
-                        <input type="hidden" name="RoomId" value="{{ $room->id }}">
 
                         <div class="row mb-3">
                             <label for="input35" class="col-sm-3 col-form-label">Room Active</label>
                             <div class="col-sm-9">
-                                <select id="input9" class="form-select" name="Status">
+                                <select id="input9" class="form-select" name="status">
                                     <option selected="">Choose...</option>
-                                    <option value="Active">Active</option>
-                                    <option value="InActive">InActive</option>
+                                    <option value="active">Active</option>
+                                    <option value="in_active">InActive</option>
                                 </select>
                             </div>
                         </div>

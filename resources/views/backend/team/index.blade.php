@@ -42,15 +42,14 @@
                     <tr>
                         <td>{{ $team->id }}</td>
                         <td>
-                            <img src="{{ $team->images ? $team->images->url() : '' }}" alt="" style="width:70px; height:40px;" >
+                            <img src="{{ \App\Facades\ImageFacade::image($team->image) }}" alt="" style="width:70px; height:40px;" >
                         </td>
                         <td>{{ $team->name }}</td>
                         <td>{{ $team->postion }}</td>
                         <td>{{ $team->facebook }}</td>
                         <td>
-                            {{-- <a href="{{ route('team.edit' , ['team' => $team]) }}" class="btn btn-warning px-3 radius-30"> Edit</a> --}}
                             <button type="button" class="btn btn-outline-warning px-3 radius-30" data-bs-toggle="modal" data-bs-target="#EditTeam{{ $team->id }}">Edit</button>
-                            <a onclick="event.preventDefault();document.getElementById('deleteTeam{{ $team->id }}').submit()" href="#" class="btn btn-outline-danger px-3 radius-30" id="delete">Delete</a>
+                            <a href="#" class="btn btn-outline-danger px-3 radius-30" data-formid="{{ 'deleteTeam'.$team->id }}" id="delete">Delete</a>
                             <form action="{{ route('team.destroy' , ['team' => $team]) }}" method="post" id="deleteTeam{{ $team->id }}">
                                 @csrf
                                 @method('DELETE')
@@ -65,7 +64,7 @@
                     @endforeach 
                     
                 </tbody>
-                
+
             </table>
         </div>
     </div>

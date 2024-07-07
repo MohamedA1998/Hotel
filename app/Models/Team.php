@@ -4,18 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-
+use Illuminate\Support\Str;
 class Team extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name' , 'postion' , 'facebook'];
-
-    // Image Relationships Morph
-    public function images():MorphOne
-    {
-        return $this->morphOne(Image::class , 'imagable');
-    }
+    protected $fillable = ['name' , 'postion' , 'facebook' , 'image'];
 
 }
