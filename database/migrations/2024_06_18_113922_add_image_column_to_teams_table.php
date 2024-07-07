@@ -11,15 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('book_areas', function (Blueprint $table) {
-            $table->id();
-            
-            $table->string('ShortTitle')->nullable();
-            $table->string('MainTitle')->nullable();
-            $table->text('ShortDesc')->nullable();
+        Schema::table('teams', function (Blueprint $table) {
             $table->string('image')->nullable();
-
-            $table->timestamps();
         });
     }
 
@@ -28,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book_areas');
+        Schema::table('teams', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 };

@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\FrontBookingController;
 use App\Http\Controllers\Frontend\FrontRoomController;
 use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\ImageController;
 use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,7 @@ Route::middleware('auth')->group(function(){
 // End Auth Middleware
 
 
-
+Route::resource('image' , ImageController::class);
 
 
 
@@ -73,16 +74,35 @@ Route::middleware('admin')->group(function(){
     // End
 
     
-    Route::resource('team' , TeamController::class);
+    Route::resource('team' , TeamController::class)
+        ->except('show' , 'edit' , 'create');
+    
+    Route::resource('bookarea' , BookAreaController::class)
+        ->only('index' , 'update');
+    
+    Route::resource('room/type' , RoomTypeController::class)
+        ->only('index' , 'store' , 'destroy');
+    
+    // We Wont To Handel Image Service To Work With Array
+    // Handel Delete Image
+    Route::resource('room' , RoomController::class)
+        ->only('edit' , 'update');
+    Route::get('room/{room}/delete/{index}' , [RoomController::class , 'RoomDeleteSpaceficImage'])
+        ->name('room.delete.image');
+    Route::resource('room.roomnumber' , RoomNumberController::class)
+        ->only('store' , 'update' , 'destroy');
+
+
+
     Route::resource('testimonial' , TestimonialController::class);
     Route::resource('blogCategorie' , BlogCategorieController::class);
     Route::resource('blogpost' , BlogPostController::class);
-    Route::resource('room/type' , RoomTypeController::class);
-    Route::resource('room' , RoomController::class);
-    Route::get('room/delete/image/{image}' , [RoomController::class , 'RoomDeleteImageFromImages'])->name('room.delete.image');
     
-    Route::resource('roomnumber' , RoomNumberController::class);
-    Route::resource('bookarea' , BookAreaController::class)->only(['index' , 'update']);
+    
+    
+    
+    
+    
 
     Route::resource('booking' , BookingController::class);
     Route::controller(BookingController::class)->group(function(){

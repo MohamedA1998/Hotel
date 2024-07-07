@@ -39,12 +39,12 @@
                     @foreach ($RoomTypes as $item ) 
                     <tr>
                         <td>{{ $item->id }}</td> 
-                        <td><img src="{{ !empty($item->room->image) ? $item->room->imageurl() : asset('no_image.jpg') }}" alt="" width="50" height="50"></td>
+                        <td><img src="{{ \App\Facades\ImageFacade::first($item->room->image) }}" alt="" width="50" height="50"></td>
                         {{-- <td><img src="{{ count($item->room->images) > 0 ? $item->room->images->first()->url() : asset('no_image.jpg') }}" alt="" width="50" height="50"></td> --}}
                         <td>{{ $item->name }}</td>
                         <td>
                             <a href="{{ route('room.edit' , ['room' => $item->room]) }}" class="btn btn-outline-warning mx-2 px-3 radius-30">Edit</button>
-                            <a onclick="event.preventDefault();document.getElementById('deleteRoomType{{ $item->id }}').submit()" href="#" class="btn btn-outline-danger px-3 radius-30" id="delete">Delete</a>
+                            <a href="#" class="btn btn-outline-danger px-3 radius-30" data-formid="{{ 'deleteRoomType'.$item->id }}" id="delete">Delete</a>
                             <form action="{{ route('type.destroy' , ['type' => $item]) }}" method="post" id="deleteRoomType{{ $item->id }}">
                                 @csrf
                                 @method('DELETE')
@@ -100,6 +100,4 @@
     </div>
 </div>
 <!-- Create New Team Modal -->
-
-
 @endsection

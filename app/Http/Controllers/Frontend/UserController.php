@@ -21,8 +21,8 @@ class UserController extends Controller
     {
         return view('frontend.index' , [
             'rooms'         => Room::with('roomType')->limit(4)->get(),
-            'teams'         => Team::with('images')->latest()->get()    ,
-            'bookarea'      => BookArea::with('images')->first()    ,
+            'teams'         => Team::latest()->get()    ,
+            'bookarea'      => BookArea::first()    ,
         ]);
     }
 

@@ -9,76 +9,47 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    
 
     public function index()
     {
-        // $team = Team::find(6);
-        // dd(Storage::url($team->images->path));
-        return view('backend.team.index' , ['teams' => Team::all() ]);
+        return view('backend.team.index' , [
+            'teams' => Team::latest()->get()
+        ]);
     }
-
-    
-    
-
-    public function create()
-    {
-        return view('backend.team.create');
-    }
-
-    
-    
 
     public function store(Request $request)
     {
         $team = Team::create([
             'name'          => $request->name ,
             'postion'       => $request->postion ,
-            'facebook'      => $request->facebook
+            'facebook'      => $request->facebook,
+            'image'         => ImageFacade::size(550 , 670)->save('upload/team')
         ]);
-
-        ImageFacade::size(550 , 670)->save($team , 'photo' , 'upload/team');
-
+        
+        toastr('An error has occurred please try again later.' ,'success' , 'Team Created');
+        
         return redirect()->route('team.index');
     }
-    
-
-
-    public function show(Team $team)
-    {
-        //
-    }
-    
-
-    public function edit(Team $team)
-    {
-        return view('backend.team.edit' , ['team' => $team]);
-    }
-    
-
 
     public function update(Request $request, Team $team)
     {
         $team->update([
             'name'          => $request->name ,
             'postion'       => $request->postion ,
-            'facebook'      => $request->facebook
+            'facebook'      => $request->facebook,
         ]);
-        
-        ImageFacade::size(550 , 670)->update($team , 'photo' , 'upload/team');
+
+        ImageFacade::size(550 , 670)->update($team , 'upload/team');
 
         return redirect()->route('team.index');
     }
 
-
-
     public function destroy(Team $team)
     {        
-        ImageFacade::delete($team);
+        ImageFacade::delete($team->image);
 
         $team->delete();
 
         return redirect()->route('team.index')->with($this->alert('success' , 'One From Team Was Deleted Successfully'));
     }
-
 }

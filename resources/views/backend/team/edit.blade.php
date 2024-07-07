@@ -30,7 +30,7 @@
                         <div class="row mb-3">
                             <label for="input38" class="col-sm-3 col-form-label">Photo</label>
                             <div class="col-sm-9">
-                                <input class="form-control" name="photo" type="file" id="image">
+                                <input class="form-control" name="image" type="file" id="image">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -38,7 +38,7 @@
                                 <h6 class="mb-0"></h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <img id="showImage" src="{{ $team->images->url() }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="90">
+                            <img id="showImage" src="{{ \App\Facades\ImageFacade::image($team->image) }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="90">
                             </div>
                         </div>
 

@@ -9,74 +9,39 @@ use Illuminate\Http\Request;
 
 class RoomNumberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function store(Request $request , Room $room)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $room = Room::find($request->RoomId);
-
         $room->roomnumber()->create([
             'room_type_id'  => $room->roomType->id    ,
-            'RoomNumber'    => $request->RoomNumber ,
-            'Status'        => $request->Status
+            'room_number'    => $request->room_number ,
+            'status'        => $request->status
         ]);
 
-        return redirect()->back()->with($this->alert('success' , 'Room Number Was Created!!!'));
-    }
+        toastr()->success('Room Number Was Created!!!','Room Number');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(RoomNumber $roomNumber)
-    {
-        //
+        return redirect()->back();
     }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(RoomNumber $roomNumber)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, RoomNumber $roomnumber)
+    public function update(Request $request, Room $room , RoomNumber $roomnumber)
     {
         $roomnumber->update([
-            'RoomNumber'    => $request->RoomNumber ,
-            'Status'        => $request->Status
+            'room_number'    => $request->room_number ,
+            'status'        => $request->status
         ]);
 
-        return redirect()->back()->with($this->alert('success' , 'Room Number Was Updated!!!'));
-    }
+        toastr()->success('Room Number Was Updated!!!','Room Number');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(RoomNumber $roomnumber)
+        return redirect()->back();
+    }
+    
+
+    public function destroy(Room $room , RoomNumber $roomnumber)
     {
         $roomnumber->delete();
 
-        return redirect()->back()->with($this->alert('success' , 'Room Number Was Deleted!!!'));
+        toastr()->success('Room Number Was Deleted!!!','Room Number');
+
+        return redirect()->back();
     }
 }

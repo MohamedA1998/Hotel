@@ -15,6 +15,10 @@
 <script src="{{ asset('backend/assets/js/index.js') }}"></script>
 <!--app JS-->
 <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+{{-- Sweet Alert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{asset('backend/assets/js/code.js')}}"></script>
+
 {{-- Tiny Text Are --}}
 <script src="{{ asset('backend/assets/js/tinycdn.min.js') }}" referrerpolicy="origin"></script>
 <script>
