@@ -25,6 +25,11 @@ class ImageController extends Controller
     public function store(Request $request) 
     {
         dd('Test Make New Branch');
+        dd('Test Make New Branch');
+        dd('Test Make New Branch');
+        dd('Test Make New Branch');
+        dd('Test Make New Branch');
+        dd('Test Make New Branch');
         // $file = base64_decode(request('file'));
         // // dump($file);
         dd($request->all());
