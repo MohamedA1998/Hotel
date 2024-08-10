@@ -52,8 +52,6 @@ Route::middleware('auth')->group(function(){
 // End Auth Middleware
 
 
-Route::resource('image' , ImageController::class);
-
 
 
 
