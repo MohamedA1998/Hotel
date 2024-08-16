@@ -18,7 +18,7 @@
 
             <div class="col-lg-6">
                 <div class="book-img-2">
-                    <img src="{{ $bookarea->images->url() }}" alt="Images">
+                    <img src="{{ \App\Facades\ImageFacade::image($bookarea->image) }}" alt="Images">
                 </div>
             </div>
         </div>

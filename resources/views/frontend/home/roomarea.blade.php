@@ -14,7 +14,7 @@
                                 <div class="room-card-img">
                                     <a href="{{ route('frontroom.roomdetails' , ['room' => $room->id]) }}">
                                         {{-- image --}}
-                                        <img src="{{ $room->imageurl() }}" alt="Images">
+                                        <img src="{{ \App\Facades\ImageFacade::first($room->image) }}" alt="Images" height="310px">
                                     </a>
                                 </div>
                             </div>
@@ -46,8 +46,8 @@
                                         <li><i class='bx bx-show-alt'></i>{{ $room->view }}</li>
                                         <li><i class='bx bxs-hotel'></i>{{ $room->bed_style }}</li>
                                     </ul>
-                                    
-                                    <a href="{{ route('frontroom.roomdetails' , ['room' => $room->id]) }} class="book-more-btn">
+
+                                    <a href="{{ route('frontroom.roomdetails' , ['room' => $room->id]) }}" class="book-more-btn">
                                         Book Now
                                     </a>
                                 </div>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             @endforeach
-        
+
         </div>
     </div>
 </div>
