@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
-    public function edit($room)
+    public function edit(Room $room)
     {
+        $room->load(['roomType' , 'images' , 'facility' , 'roomnumber']);
         return view('backend.allroom.rooms.editroom' , [
-            'room' => Room::with(['roomType' , 'images' , 'facility' , 'roomnumber'])->find($room)
+            'room' => $room
         ]);
     }
-    
+
     public function update(Request $request, Room $room)
     {
         $room->update([
@@ -32,9 +33,9 @@ class RoomController extends Controller
             'short_desc'        => $request->short_desc   ,
             'description'       => $request->description ,
         ]);
-        
+
         ImageFacade::size(550 , 550)->update($room ,'upload/room');
-        
+
         if (isset($request->facility_name) && !empty($request->facility_name)){
             $room->facility()->delete();
 
@@ -44,7 +45,7 @@ class RoomController extends Controller
         }
 
         toastr()->success('Room Was Updated Successfully!!!','Room Updated');
-                
+
         return redirect()->back();
     }
 
