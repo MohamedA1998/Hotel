@@ -71,3 +71,8 @@ Route::view('/privacy-policy' , 'frontend.privacy-policy')->name('privacy-policy
 Route::view('/404' , 'frontend.404')->name('404');
 Route::view('/coming-soon' , 'frontend.coming-soon')->name('coming-soon');
 Route::view('/services' , 'frontend.services')->name('services');
+
+
+
+
+Route::view('/contact_ssss' , 'frontend.contact')->name('contact');
