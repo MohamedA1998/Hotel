@@ -10,7 +10,7 @@
         </div>
     </div>
     <!-- Banner Area End -->
-    
+
     <!-- Banner Form Area -->
     <div class="banner-form-area">
         <div class="container">
@@ -25,7 +25,7 @@
                                     <input type="text" name="check_in" class="form-control dt_picker" placeholder="yyy-mm-dd" autocomplete="off" required>
                                     <span class="input-group-addon"></span>
                                 </div>
-                                <i class='bx bxs-chevron-down'></i>	
+                                <i class='bx bxs-chevron-down'></i>
                             </div>
                         </div>
 
@@ -36,7 +36,7 @@
                                     <input type="text" name="check_out" class="form-control dt_picker" placeholder="yyy-mm-dd" autocomplete="off" required>
                                     <span class="input-group-addon"></span>
                                 </div>
-                                <i class='bx bxs-chevron-down'></i>	
+                                <i class='bx bxs-chevron-down'></i>
                             </div>
                         </div>
 
@@ -48,7 +48,7 @@
                                     <option>02</option>
                                     <option>03</option>
                                     <option>04</option>
-                                </select>	
+                                </select>
                             </div>
                         </div>
 

@@ -8,7 +8,7 @@
             @foreach ($teams as $team)
                 <div class="team-item">
                     <a href="team.html">
-                        <img src="{{ $team->images->url() }}" alt="Images">
+                        <img src="{{ \App\Facades\ImageFacade::image($team->image) }}" alt="Images">
                     </a>
                     <div class="content">
                         <h3><a href="team.html">{{ $team->name }}</a></h3>
@@ -16,16 +16,16 @@
                         <ul class="social-link">
                             <li>
                                 <a href="{{ $team->facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a>
-                            </li> 
+                            </li>
                             <li>
                                 <a href="#" target="_blank"><i class='bx bxl-twitter'></i></a>
-                            </li> 
+                            </li>
                             <li>
                                 <a href="#" target="_blank"><i class='bx bxl-instagram'></i></a>
-                            </li> 
+                            </li>
                             <li>
                                 <a href="#" target="_blank"><i class='bx bxl-pinterest-alt'></i></a>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                 </div>
