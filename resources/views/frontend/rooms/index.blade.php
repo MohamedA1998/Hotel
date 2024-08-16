@@ -13,12 +13,12 @@
                 <h2>Our Rooms & Rates</h2>
             </div>
             <div class="row pt-45">
-                
+
                 @foreach ($rooms as $room)
                     <div class="col-lg-4 col-md-6">
                         <div class="room-card">
                             <a href="{{ route('frontroom.roomdetails' , ['room' => $room]) }}">
-                                <img src="{{ $room->imageurl() }}" alt="Images" height="350px" width="100%">
+                                <img src="{{ \App\Facades\ImageFacade::first($room->image) }}" alt="Images" height="350px" width="100%">
                             </a>
                             <div class="content">
                                 <h3>

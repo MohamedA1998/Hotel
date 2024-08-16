@@ -25,9 +25,9 @@ class TeamController extends Controller
             'facebook'      => $request->facebook,
             'image'         => ImageFacade::size(550 , 670)->save('upload/team')
         ]);
-        
+
         toastr('An error has occurred please try again later.' ,'success' , 'Team Created');
-        
+
         return redirect()->route('team.index');
     }
 
@@ -45,7 +45,7 @@ class TeamController extends Controller
     }
 
     public function destroy(Team $team)
-    {        
+    {
         ImageFacade::delete($team->image);
 
         $team->delete();

@@ -24,18 +24,18 @@ class FrontRoomController extends Controller
     public function SingleRoomDetails(Room $room)
     {
         return view('frontend.rooms.room-details' , [
-            'room'          => $room    ,
-            'otherroom'     => Room::where('id' , '!=' , $room->id)->orderBy('id' , 'DESC')->limit(2)->get(),
+            'room'          => $room->load('roomType' , 'facility'),
+            'otherroom'     => Room::with('roomType')->where('id' , '!=' , $room->id)->orderBy('id' , 'DESC')->limit(2)->get(),
         ]);
     }
-    
+
 
 
     public function SearchFromBooking( Request $request )
     {
         $request->flash();
 
-        if ( $request->check_in == $request->check_out ){
+        if ( $request->check_in >= $request->check_out ){
             return redirect()->back()->with($this->alert('error' , 'Something Want To Working'));
         }
 
@@ -54,18 +54,17 @@ class FrontRoomController extends Controller
         $rooms = Room::withCount('roomnumber')->where('status',1)->get();
 
         return view('frontend.rooms.search_room',compact('rooms','check_date_booking_ids'));
-
     }
 
 
-    
+
     public function SearchRoomDetails( Request $request , Room $room ){
         $request->flash();
         return view('frontend.rooms.search_room_details' , [
             'room'          => $room    ,
             'otherroom'     => Room::where('id' , '!=' , $room->id)->orderBy('id' , 'DESC')->limit(2)->get(),
         ]);
-    }// End Method 
+    }// End Method
 
 
 
@@ -96,6 +95,6 @@ class FrontRoomController extends Controller
         $nights = $toDate->diffInDays($fromDate);
 
         return response()->json(['available_room'=>$av_room, 'total_nights'=>$nights ]);
-    }// End Method 
+    }// End Method
 
 }

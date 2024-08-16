@@ -22,7 +22,7 @@
                     $total_book_room = array_sum(array_column($bookings,'assign_rooms_count'));
                     $av_room = @$item->roomnumber_count-$total_book_room;
                 @endphp
-    
+
                 @if ( $av_room > 0 && old('persion') <= $item->total_adult)
                     <div class="col-lg-4 col-md-6">
                         <div class="room-card">
@@ -30,9 +30,9 @@
                                 'room' => $item ,
                                 'check_in' => old('check_in') ,
                                 'check_out' => old('check_out') ,
-                                'persion' => old('persion')] )
-                            }}">
-                                <img src="{{ $item->imageurl() }}" alt="Images" height="350px" width="100%">
+                                'persion' => old('persion')
+                                ]) }}">
+                                <img src="{{ \App\Facades\ImageFacade::first($item->image) }}" alt="Images" height="350px" width="100%">
                             </a>
                             <div class="content">
                                 <h3>

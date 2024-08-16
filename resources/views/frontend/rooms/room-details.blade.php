@@ -48,10 +48,10 @@
                                             <option value="">3</option>
                                             <option value="">4</option>
                                             <option value="">5</option>
-                                        </select>	
+                                        </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Numbers of Rooms</label>
@@ -61,10 +61,10 @@
                                            <option value="">3</option>
                                            <option value="">4</option>
                                            <option value="">5</option>
-                                        </select>	
+                                        </select>
                                     </div>
                                 </div>
-    
+
                                 <div class="col-lg-12 col-md-12">
                                     <button type="submit" class="default-btn btn-bg-three border-radius-5">
                                         Book Now
@@ -80,21 +80,21 @@
             <div class="col-lg-8">
                 <div class="room-details-article">
                     <div class="room-details-slider owl-carousel owl-theme">
-                        @foreach ($room->images as $image)
+                        @foreach (\App\Facades\ImageFacade::image($room->image) as $image)
                             <div class="room-details-item">
-                                <img src="{{ $image->url() }}" alt="Images" width="100%" height="650px">
+                                <img src="{{ $image }}" alt="Images" width="100%" height="650px">
                             </div>
                         @endforeach
                     </div>
-                    
+
                     <div class="room-details-title">
                         <h2>{{ $room->roomType->name }}</h2>
                         <ul>
-                            
+
                             <li>
                                 <b> Basic : ${{ $room->price }}/Night/Room</b>
-                            </li> 
-                            
+                            </li>
+
                         </ul>
                     </div>
 
@@ -102,7 +102,7 @@
                         <p>
                             {!! $room->description !!}
                         </p>
-                        
+
 
                     <div class="side-bar-plan">
                         <h3>Basic Plan Facilities</h3>
@@ -110,7 +110,7 @@
                             @foreach ($room->facility as $item)
                                 <li><a href="#">{{ $item->facility_name }}</a></li>
                             @endforeach
-                        </ul>                        
+                        </ul>
                     </div>
 
 
@@ -119,7 +119,7 @@
 
 
 
-            <div class="row"> 
+            <div class="row">
                 <div class="col-lg-6">
                     <div class="services-bar-widget">
                         <h3 class="title">Room Details</h3>
@@ -149,7 +149,7 @@
                             </ul>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
 
 
@@ -204,7 +204,7 @@
                             <div class="col-lg-5 col-md-4 p-0">
                                 <div class="room-card-img">
                                     <a href="{{ route('frontroom.roomdetails' , ['room' => $otherroom->id]) }}">
-                                        <img src="{{ $otherroom->imageurl() }}" alt="Images" width="100%" height="300px">
+                                        <img src="{{ \App\Facades\ImageFacade::first($room->image) }}" alt="Images" width="100%" height="335px">
                                     </a>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                         <li><i class='bx bx-show-alt'></i>{{ $otherroom->view }}</li>
                                         <li><i class='bx bxs-hotel'></i>{{ $otherroom->bed_style }}</li>
                                     </ul>
-                                    
+
                                     <a href="{{ route('frontroom.roomdetails' , ['room' => $otherroom->id]) }}" class="book-more-btn">
                                         Book Now
                                     </a>
