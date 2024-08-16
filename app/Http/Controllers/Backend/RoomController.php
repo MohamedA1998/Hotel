@@ -14,6 +14,7 @@ class RoomController extends Controller
     public function edit(Room $room)
     {
         $room->load(['roomType' , 'images' , 'facility' , 'roomnumber']);
+
         return view('backend.allroom.rooms.editroom' , [
             'room' => $room
         ]);
