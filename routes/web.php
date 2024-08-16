@@ -182,7 +182,6 @@ Route::middleware('admin')->group(function(){
         Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
     });
 
-    //Sorry This To Test Conflect
 });
 // End Admin Middleware
 
