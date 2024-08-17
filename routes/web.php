@@ -73,3 +73,4 @@ Route::view('/coming-soon' , 'frontend.coming-soon')->name('coming-soon');
 Route::view('/services' , 'frontend.services')->name('services');
 
 // This Comment Fro Test Conflect
+Route::view('/contact_ssss' , 'frontend.contact')->name('contact');
