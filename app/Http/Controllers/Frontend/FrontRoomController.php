@@ -60,8 +60,11 @@ class FrontRoomController extends Controller
 
     public function SearchRoomDetails( Request $request , Room $room ){
         $request->flash();
+
+//        $room->roomnumber
+
         return view('frontend.rooms.search_room_details' , [
-            'room'          => $room    ,
+            'room'          => $room->load('facility'),
             'otherroom'     => Room::where('id' , '!=' , $room->id)->orderBy('id' , 'DESC')->limit(2)->get(),
         ]);
     }// End Method
@@ -88,7 +91,7 @@ class FrontRoomController extends Controller
 
         $total_book_room = array_sum(array_column($bookings,'assign_rooms_count'));
 
-        $av_room = @$room->roomnumber_count-$total_book_room;
+        $av_room = @$room->roomnumber_count - $total_book_room;
 
         $toDate = Carbon::parse($request->check_in);
         $fromDate = Carbon::parse($request->check_out);

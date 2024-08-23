@@ -18,9 +18,9 @@
                                 </a>
 
                                 <div class="accordion-content">
-                                    <p> 
+                                    <p>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at diam leo. Mauris a ante placerat,
-                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices 
+                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices
                                         vel ultricies eu, vulputate at felis.
                                     </p>
                                 </div>
@@ -29,13 +29,13 @@
                             <li class="accordion-item">
                                 <a class="accordion-title" href="javascript:void(0)">
                                     <i class='bx bx-plus'></i>
-                                    How I Will Be Able to Add on the Admin Portal? 
+                                    How I Will Be Able to Add on the Admin Portal?
                                 </a>
 
                                 <div class="accordion-content">
-                                    <p> 
+                                    <p>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at diam leo. Mauris a ante placerat,
-                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices 
+                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices
                                         vel ultricies eu, vulputate at felis.
                                     </p>
                                 </div>
@@ -48,9 +48,9 @@
                                 </a>
 
                                 <div class="accordion-content">
-                                    <p> 
+                                    <p>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at diam leo. Mauris a ante placerat,
-                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices 
+                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices
                                         vel ultricies eu, vulputate at felis.
                                     </p>
                                 </div>
@@ -63,9 +63,9 @@
                                 </a>
 
                                 <div class="accordion-content show">
-                                    <p> 
+                                    <p>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at diam leo. Mauris a ante placerat,
-                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices 
+                                        dignissim orci eget, viverra ante. Mauris ornare pellentesque augue. Curabitur leo nibh, ultrices
                                         vel ultricies eu, vulputate at felis.
                                     </p>
                                 </div>
@@ -77,7 +77,7 @@
 
             <div class="col-lg-6">
                 <div class="faq-img-3">
-                    <img src="assets/img/faq/faq-img3.jpg" alt="Images">
+                    <img src="{{ asset('frontend/assets/img/faq/faq-img3.jpg') }}" alt="Images">
                 </div>
             </div>
         </div>
