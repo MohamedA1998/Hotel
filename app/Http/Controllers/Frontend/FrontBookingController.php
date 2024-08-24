@@ -18,39 +18,6 @@ use Illuminate\Support\Facades\Session;
 
 class FrontBookingController extends Controller
 {
-    
-
-    public function BookingStore( Request $request )
-    {
-        $validateData = $request->validate([
-            'check_in' => 'required',
-            'check_out' => 'required',
-            'persion' => 'required',
-            'number_of_rooms' => 'required',
-        ]);
-
-        if ($request->available_room < $request->number_of_rooms) {
-            return redirect()->back()->with($this->alert('error' , 'Something want to wrong!'));
-        }
-
-        Session::forget('book_date');
-
-        $data = array();
-        $data['number_of_rooms'] = $request->number_of_rooms;
-        $data['available_room'] = $request->available_room;
-        $data['persion'] = $request->persion;
-        $data['check_in'] = date('Y-m-d',strtotime($request->check_in));
-        $data['check_out'] = date('Y-m-d',strtotime($request->check_out));
-        $data['room_id'] = $request->room_id;
-
-        Session::put('book_date',$data);
-
-        return redirect()->route('checkout');
-
-    }
-
-
-    
     public function CheckOut()
     {
         if ( Session::has('book_date') ){
@@ -72,6 +39,34 @@ class FrontBookingController extends Controller
     }
 
 
+    public function BookingStore( Request $request )
+    {
+        $validateData = $request->validate([
+            'check_in' => 'required',
+            'check_out' => 'required',
+            'persion' => 'required',
+            'number_of_rooms' => 'required',
+        ]);
+
+        if ($request->available_room < $request->number_of_rooms) {
+            return redirect()->back()->with($this->alert('error' , 'Something want to wrong!'));
+        }
+
+        Session::forget('book_date');
+
+        Session::put('book_date',[
+            'number_of_rooms'   => $request->number_of_rooms,
+            'available_room'    => $request->available_room,
+            'persion'           => $request->persion,
+            'check_in'          => date('Y-m-d',strtotime($request->check_in)),
+            'check_out'         => date('Y-m-d',strtotime($request->check_out)),
+            'room_id'           => $request->room_id
+        ]);
+
+        return redirect()->route('checkout');
+    }
+
+    
     public function CheckOutStore( Request $request )
     {
         $this->validate($request , [
@@ -169,9 +164,5 @@ class FrontBookingController extends Controller
 
         return redirect('/')->with($this->alert('success' , 'Booking Added Successfully'));
 
-    }   
-   
-    
-
-
+    }
 }

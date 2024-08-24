@@ -91,7 +91,7 @@
                                 <hr>
 
                                 <div style="display: flex">
-                                    <img style="height:100px; width:120px;object-fit: cover" src="{{ !empty($room->image) ? $room->imageurl() : asset('no_image.jpg') }}" alt="Images" alt="Images">
+                                    <img style="height:100px; width:120px;object-fit: cover" src="{{ \App\Facades\ImageFacade::first($room->image) }}" alt="Images" alt="Images">
                                     <div style="padding-left: 10px;">
                                         <a href=" " style="font-size: 20px; color: #595959;font-weight: bold">{{ $room->roomType->name }}</a>
                                         <p><b>{{ $room->price }} / Night</b></p>
